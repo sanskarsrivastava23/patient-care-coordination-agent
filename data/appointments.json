@@ -1,0 +1,18 @@
+[
+  {
+    "appointment_id": "A001",
+    "patient_id": "P001",
+    "specialty": "Cardiology",
+    "provider": "Dr. Asha Mehta",
+    "date": "2026-09-25",
+    "status": "confirmed"
+  },
+  {
+    "appointment_id": "A002",
+    "patient_id": "P001",
+    "specialty": "Dermatology",
+    "provider": "Dr. Neel Shah",
+    "date": "2026-09-10",
+    "status": "missed"
+  }
+]

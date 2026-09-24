@@ -1,0 +1,16 @@
+[
+  {
+    "followup_id": "F001",
+    "patient_id": "P001",
+    "due_date": "2026-09-30",
+    "status": "pending",
+    "description": "Review recent lab results with your clinician."
+  },
+  {
+    "followup_id": "F002",
+    "patient_id": "P001",
+    "due_date": "2026-09-18",
+    "status": "completed",
+    "description": "Complete post-visit check-in."
+  }
+]

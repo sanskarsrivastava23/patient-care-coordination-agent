@@ -1,0 +1,10 @@
+[
+  {
+    "referral_id": "R001",
+    "patient_id": "P001",
+    "specialty": "Cardiology",
+    "specialist": "Dr. Asha Mehta",
+    "created_date": "2026-09-12",
+    "status": "pending"
+  }
+]

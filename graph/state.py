@@ -26,6 +26,18 @@ class PatientCareState(TypedDict, total=False):
     followups: List[Dict[str, Any]]
 
     # Coordinator
+    agent_results: Dict[str, Any]
+    pending_actions: List[str]
+    safety_flags: List[str]
+    review_reason: str
+    care_summary: str
+    completed_items: List[str]
+    upcoming_appointments: List[Dict[str, Any]]
+    pending_referrals: List[Dict[str, Any]]
+    pending_followups: List[Dict[str, Any]]
+    timeline: List[Dict[str, Any]]
+    missing_information: List[str]
+    conflicts: List[str]
     final_response: str
 
     # System
