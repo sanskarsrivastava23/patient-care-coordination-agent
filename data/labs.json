@@ -1,0 +1,92 @@
+[
+  {
+    "patient_id": "P001",
+    "patient_name": "Rahul Sharma",
+    "glucose": 145,
+    "hba1c": 6.8,
+    "creatinine": 0.9,
+    "potassium": 4.2,
+    "hemoglobin": 13.5
+  },
+  {
+    "patient_id": "P002",
+    "patient_name": "Priya Das",
+    "glucose": 98,
+    "hba1c": 5.4,
+    "creatinine": 0.8,
+    "potassium": 4.1,
+    "hemoglobin": 12.8
+  },
+  {
+    "patient_id": "P003",
+    "patient_name": "Amit Kumar",
+    "glucose": 178,
+    "hba1c": 7.2,
+    "creatinine": 1.0,
+    "potassium": 4.5,
+    "hemoglobin": 14.2
+  },
+  {
+    "patient_id": "P004",
+    "patient_name": "Sneha Roy",
+    "glucose": 92,
+    "hba1c": 5.2,
+    "creatinine": 0.7,
+    "potassium": 4.0,
+    "hemoglobin": 11.2
+  },
+  {
+    "patient_id": "P005",
+    "patient_name": "Arjun Singh",
+    "glucose": 105,
+    "hba1c": 5.8,
+    "creatinine": 1.1,
+    "potassium": 4.8,
+    "hemoglobin": 15.1
+  },
+  {
+    "patient_id": "P006",
+    "patient_name": "Neha Gupta",
+    "glucose": 88,
+    "hba1c": 5.1,
+    "creatinine": 0.8,
+    "potassium": 4.0,
+    "hemoglobin": 13.1
+  },
+  {
+    "patient_id": "P007",
+    "patient_name": "Rohan Mehta",
+    "glucose": 155,
+    "hba1c": 7.0,
+    "creatinine": 1.4,
+    "potassium": 5.2,
+    "hemoglobin": 12.1
+  },
+  {
+    "patient_id": "P008",
+    "patient_name": "Ananya Sen",
+    "glucose": 94,
+    "hba1c": 5.3,
+    "creatinine": 0.7,
+    "potassium": 4.2,
+    "hemoglobin": 12.5
+  },
+  {
+    "patient_id": "P009",
+    "patient_name": "Vikram Patel",
+    "glucose": 110,
+    "hba1c": 5.9,
+    "creatinine": 1.0,
+    "potassium": 4.6,
+    "hemoglobin": 14.8
+  },
+  {
+    "patient_id": "P010",
+    "patient_name": "Kavya Nair",
+    "glucose": 162,
+    "hba1c": 6.9,
+    "creatinine": 0.9,
+    "potassium": 4.3,
+    "hemoglobin": 10.8
+  }
+]
