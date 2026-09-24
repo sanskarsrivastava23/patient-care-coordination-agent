@@ -1,0 +1,38 @@
+[
+  {
+    "visit_id": "V1001",
+    "patient_id": "P1001",
+    "date": "2026-09-18",
+    "doctor": "Dr. Smith",
+    "reason": "Routine follow-up",
+    "diagnosis": "Hypertension",
+    "notes": "Blood pressure monitored."
+  },
+  {
+    "visit_id": "V1002",
+    "patient_id": "P1001",
+    "date": "2026-08-15",
+    "doctor": "Dr. Smith",
+    "reason": "Routine checkup",
+    "diagnosis": "Hypertension",
+    "notes": "Continue regular medication."
+  },
+  {
+    "visit_id": "V1003",
+    "patient_id": "P1002",
+    "date": "2026-09-10",
+    "doctor": "Dr. Williams",
+    "reason": "Asthma follow-up",
+    "diagnosis": "Mild Asthma",
+    "notes": "Symptoms under control."
+  },
+  {
+    "visit_id": "V1004",
+    "patient_id": "P1003",
+    "date": "2026-09-05",
+    "doctor": "Dr. Brown",
+    "reason": "Diabetes checkup",
+    "diagnosis": "Type 2 Diabetes",
+    "notes": "Blood glucose monitored."
+  }
+]

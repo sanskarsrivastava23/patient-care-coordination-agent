@@ -1,0 +1,29 @@
+[
+  {
+    "patient_id": "P1001",
+    "name": "John Doe",
+    "age": 45,
+    "gender": "Male",
+    "blood_group": "O+",
+    "allergies": ["Penicillin"],
+    "medical_history": ["Hypertension"]
+  },
+  {
+    "patient_id": "P1002",
+    "name": "Jane Smith",
+    "age": 32,
+    "gender": "Female",
+    "blood_group": "A+",
+    "allergies": ["None"],
+    "medical_history": ["Asthma"]
+  },
+  {
+    "patient_id": "P1003",
+    "name": "Robert Johnson",
+    "age": 58,
+    "gender": "Male",
+    "blood_group": "B+",
+    "allergies": ["Aspirin"],
+    "medical_history": ["Type 2 Diabetes"]
+  }
+]
