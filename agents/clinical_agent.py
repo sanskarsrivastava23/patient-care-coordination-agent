@@ -12,11 +12,6 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_community.document_loaders import DirectoryLoader, TextLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_chroma import Chroma
-
 from tools.lab_tools import get_patient_labs
 from tools.medication_tools import get_current_medications
 
@@ -29,6 +24,12 @@ CHROMA_DIR = ROOT / "chroma_store"
 
 
 def get_guideline_retriever():
+    # This provider-backed enrichment is optional. Core lab and medication
+    # retrieval must not fail at import time when RAG dependencies are absent.
+    from langchain_chroma import Chroma
+    from langchain_community.document_loaders import DirectoryLoader, TextLoader
+    from langchain_google_genai import GoogleGenerativeAIEmbeddings
+    from langchain_text_splitters import RecursiveCharacterTextSplitter
 
     embeddings = GoogleGenerativeAIEmbeddings(
         model="gemini-embedding-001"
@@ -105,7 +106,12 @@ def clinical_agent(state):
     else:
         medications = json.loads(medication_data)
 
-    retriever = get_guideline_retriever()
+    try:
+        retriever = get_guideline_retriever()
+    except Exception:
+        # Guideline enrichment is optional and must not hide real lab or
+        # medication records when an embedding provider is unavailable.
+        retriever = None
 
     for medication in medications:
 
@@ -114,9 +120,15 @@ def clinical_agent(state):
         if not medication_name:
             continue
 
-        documents = retriever.invoke(
-            f"{medication_name} clinical use purpose"
-        )
+        if retriever is None:
+            continue
+
+        try:
+            documents = retriever.invoke(
+                f"{medication_name} clinical use purpose"
+            )
+        except Exception:
+            continue
 
         if documents:
 

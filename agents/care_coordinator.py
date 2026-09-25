@@ -2,12 +2,16 @@
 
 from __future__ import annotations
 
+import logging
 from collections.abc import Mapping
 from typing import Any
 
 from pydantic import BaseModel, Field
 
 from graph.state import PatientCareState
+
+
+logger = logging.getLogger(__name__)
 
 
 class PatientJourneyEvent(BaseModel):
@@ -49,6 +53,13 @@ class CareCoordinatorAgent:
     def run(self, state: Mapping[str, Any]) -> CareCoordinatorResult:
         """Aggregate upstream outputs into a reviewable, non-diagnostic care state."""
         patient_id = str(state.get("patient_id", ""))
+        logger.info("[CareCoordinator] Starting patient_id=%s", patient_id or "<missing>")
+        logger.debug("[CareCoordinator] Input state received keys=%s", sorted(state.keys()))
+        agent_results = state.get("agent_results")
+        logger.debug(
+            "[CareCoordinator] Agent results found=%s",
+            sorted(agent_results.keys()) if isinstance(agent_results, Mapping) else False,
+        )
         appointments = self._records_from_state(state, "appointments")
         referrals = self._records_from_state(state, "referrals")
         followups = self._records_from_state(state, "followups")
@@ -73,10 +84,18 @@ class CareCoordinatorAgent:
         review_reasons = self._review_reasons(state, conflicts)
         review_required = bool(review_reasons)
 
-        return CareCoordinatorResult(
+        logger.info("[CareCoordinator] Generating summary patient_id=%s", patient_id or "<missing>")
+        result = CareCoordinatorResult(
             patient_id=patient_id,
             care_summary=self._summary(
-                patient_id, upcoming_appointments, pending_referrals, pending_followups, missing_information
+                patient_id,
+                state.get("patient_info"),
+                labs,
+                self._records_from_state(state, "medications"),
+                upcoming_appointments,
+                pending_referrals,
+                pending_followups,
+                missing_information,
             ),
             completed_items=completed_items,
             pending_actions=pending_actions,
@@ -89,6 +108,8 @@ class CareCoordinatorAgent:
             human_review_required=review_required,
             review_reason=" ".join(review_reasons) if review_reasons else None,
         )
+        logger.info("[CareCoordinator] Output generated patient_id=%s", patient_id or "<missing>")
+        return result
 
     @staticmethod
     def _records_from_state(state: Mapping[str, Any], field: str) -> list[dict[str, Any]]:
@@ -96,9 +117,10 @@ class CareCoordinatorAgent:
         if value is None:
             agent_results = state.get("agent_results", {})
             if isinstance(agent_results, Mapping):
-                care_result = agent_results.get("care_management_agent", {})
-                if isinstance(care_result, Mapping):
-                    value = care_result.get(field, [])
+                for result in agent_results.values():
+                    if isinstance(result, Mapping) and field in result:
+                        value = result[field]
+                        break
         return [item for item in value if isinstance(item, dict)] if isinstance(value, list) else []
 
     @staticmethod
@@ -207,12 +229,20 @@ class CareCoordinatorAgent:
     @staticmethod
     def _summary(
         patient_id: str,
+        patient_info: Any,
+        labs: list[dict[str, Any]],
+        medications: list[dict[str, Any]],
         appointments: list[dict[str, Any]],
         referrals: list[dict[str, Any]],
         followups: list[dict[str, Any]],
         missing_information: list[str],
     ) -> str:
+        if not (appointments or referrals or followups or labs or medications or patient_info):
+            return "No relevant care information was found for this request."
         parts = [f"Care summary for {patient_id or 'the requested patient'}."]
+        if patient_info:
+            parts.append("Patient information is available.")
+        parts.append(f"Clinical records: {len(labs)} lab result(s), {len(medications)} medication record(s).")
         parts.append(f"Upcoming appointments: {len(appointments)}.")
         parts.append(f"Pending referrals: {len(referrals)}.")
         parts.append(f"Pending follow-ups: {len(followups)}.")
@@ -224,7 +254,23 @@ class CareCoordinatorAgent:
 
 def care_coordinator(state: PatientCareState) -> dict[str, Any]:
     """LangGraph adapter that exposes the consolidated structured result."""
-    result = CareCoordinatorAgent().run(state)
+    patient_id = str(state.get("patient_id", ""))
+    try:
+        result = CareCoordinatorAgent().run(state)
+    except Exception as exc:
+        logger.exception("[CareCoordinator] Failed patient_id=%s", patient_id or "<missing>")
+        errors = list(state.get("errors", []))
+        errors.append(f"Care coordinator failed: {type(exc).__name__}")
+        return {
+            "care_summary": "No relevant care information was found for this request.",
+            "final_response": "Care coordination could not be completed. Please try again or contact your care team.",
+            "pending_actions": [],
+            "human_review_required": True,
+            "review_reason": "The care summary could not be generated and requires review.",
+            "errors": errors,
+        }
+
     payload = result.model_dump()
     payload["final_response"] = result.care_summary
+    logger.info("[CareCoordinator] State updated patient_id=%s", patient_id or "<missing>")
     return payload

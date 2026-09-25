@@ -1,6 +1,4 @@
 from langgraph.graph import StateGraph, START, END
-from langgraph.types import Send
-
 from graph.state import PatientCareState
 
 from agents.supervisor import supervisor_agent
@@ -14,43 +12,43 @@ from agents.care_coordinator import care_coordinator
 # Route dynamically based on Supervisor decision
 # ---------------------------------------------------------
 
-def route_supervisor(state: PatientCareState):
-    """
-    Read the agents selected by the Supervisor and dynamically
-    send the current state to each required specialist agent.
-    """
+def run_selected_agents(state: PatientCareState) -> dict:
+    """Merge all selected specialist outputs before the coordinator runs."""
+    if state.get("needs_clarification"):
+        return {}
 
-    # If Supervisor needs clarification, skip specialist agents.
-    if state.get("needs_clarification", False):
-        return "coordinator"
+    handlers = {
+        "patient_agent": patient_agent,
+        "clinical_agent": clinical_agent,
+        "care_management_agent": care_management_agent,
+    }
+    merged: dict = {}
+    errors = list(state.get("errors", []))
+    human_review_required = bool(state.get("human_review_required", False))
+    review_reasons = [state.get("review_reason")] if state.get("review_reason") else []
 
-    selected_agents = state.get("selected_agents", [])
+    for agent_name in state.get("selected_agents", []):
+        handler = handlers.get(agent_name)
+        if handler is None:
+            continue
+        try:
+            output = handler({**state, **merged})
+        except Exception as exc:
+            errors.append(f"{agent_name}: {exc}")
+            continue
+        merged.update(output)
+        if output.get("human_review_required"):
+            human_review_required = True
+        if output.get("review_reason"):
+            review_reasons.append(output["review_reason"])
 
-    # If no agent was selected, go directly to coordinator.
-    if not selected_agents:
-        return "coordinator"
-
-    routes = []
-
-    if "patient_agent" in selected_agents:
-        routes.append(
-            Send("patient_agent", state)
-        )
-
-    if "clinical_agent" in selected_agents:
-        routes.append(
-            Send("clinical_agent", state)
-        )
-
-    if "care_management_agent" in selected_agents:
-        routes.append(
-            Send("care_management_agent", state)
-        )
-
-    if not routes:
-        return "coordinator"
-
-    return routes
+    if errors:
+        merged["errors"] = errors
+    if human_review_required:
+        merged["human_review_required"] = True
+    if review_reasons:
+        merged["review_reason"] = " ".join(dict.fromkeys(review_reasons))
+    return merged
 
 
 # ---------------------------------------------------------
@@ -69,20 +67,7 @@ builder.add_node(
     supervisor_agent
 )
 
-builder.add_node(
-    "patient_agent",
-    patient_agent
-)
-
-builder.add_node(
-    "clinical_agent",
-    clinical_agent
-)
-
-builder.add_node(
-    "care_management_agent",
-    care_management_agent
-)
+builder.add_node("specialists", run_selected_agents)
 
 builder.add_node(
     "coordinator",
@@ -104,36 +89,14 @@ builder.add_edge(
 # Supervisor -> Specialist Agents
 # ---------------------------------------------------------
 
-builder.add_conditional_edges(
-    "supervisor",
-    route_supervisor,
-    [
-        "patient_agent",
-        "clinical_agent",
-        "care_management_agent",
-        "coordinator"
-    ]
-)
+builder.add_edge("supervisor", "specialists")
 
 
 # ---------------------------------------------------------
 # Specialist Agents -> Coordinator
 # ---------------------------------------------------------
 
-builder.add_edge(
-    "patient_agent",
-    "coordinator"
-)
-
-builder.add_edge(
-    "clinical_agent",
-    "coordinator"
-)
-
-builder.add_edge(
-    "care_management_agent",
-    "coordinator"
-)
+builder.add_edge("specialists", "coordinator")
 
 
 # ---------------------------------------------------------

@@ -1,10 +1,6 @@
 from pathlib import Path
 
 from dotenv import load_dotenv
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_community.document_loaders import DirectoryLoader, TextLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_chroma import Chroma
 
 from tools.patient_tools import (
     get_patient_profile,
@@ -21,6 +17,13 @@ CHROMA_DIR = ROOT / "data" / "patient_chroma_store"
 
 
 def get_patient_retriever():
+    # RAG enrichment is optional; importing it lazily keeps structured patient
+    # retrieval and the care-coordination workflow available when its provider
+    # extras are unavailable or version-incompatible.
+    from langchain_chroma import Chroma
+    from langchain_community.document_loaders import DirectoryLoader, TextLoader
+    from langchain_google_genai import GoogleGenerativeAIEmbeddings
+    from langchain_text_splitters import RecursiveCharacterTextSplitter
 
     embeddings = GoogleGenerativeAIEmbeddings(
         model="gemini-embedding-001"
@@ -90,12 +93,16 @@ def patient_agent(state):
     # RAG retrieval from unstructured patient documents
     if patient_info:
 
-        retriever = get_patient_retriever()
-
-        documents = retriever.invoke(
-            f"Patient {patient_id} medical history, "
-            f"previous visits, notes and relevant information"
-        )
+        try:
+            retriever = get_patient_retriever()
+            documents = retriever.invoke(
+                f"Patient {patient_id} medical history, "
+                f"previous visits, notes and relevant information"
+            )
+        except Exception:
+            # Retrieval enrichment depends on an optional embedding provider.
+            # The structured patient record remains a valid response without it.
+            documents = []
 
         if documents:
             result["patient_info"]["unstructured_information"] = [

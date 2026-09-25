@@ -1,4 +1,4 @@
-from agents.care_coordinator import CareCoordinatorAgent
+from agents.care_coordinator import CareCoordinatorAgent, care_coordinator
 
 
 def test_coordinator_combines_outputs_and_builds_timeline():
@@ -52,3 +52,34 @@ def test_upstream_review_request_is_preserved():
 
     assert result.human_review_required is True
     assert result.review_reason == "Medication change requested."
+
+
+def test_coordinator_reads_clinical_and_care_management_agent_results():
+    result = CareCoordinatorAgent().run(
+        {
+            "patient_id": "P001",
+            "agent_results": {
+                "clinical_agent": {
+                    "lab_results": [{"patient_id": "P001", "test_name": "CBC", "status": "completed"}],
+                    "medications": [{"patient_id": "P001", "name": "Amlodipine"}],
+                },
+                "care_management_agent": {
+                    "appointments": [{"patient_id": "P001", "specialty": "Cardiology", "status": "confirmed"}],
+                    "referrals": [{"patient_id": "P001", "specialty": "Cardiology", "status": "pending"}],
+                    "followups": [{"patient_id": "P001", "status": "pending", "description": "Arrange follow-up."}],
+                },
+            },
+        }
+    )
+
+    assert result.completed_items == ["CBC completed"]
+    assert result.pending_actions == ["Follow up on the pending Cardiology referral.", "Arrange follow-up."]
+    assert "Clinical records: 1 lab result(s), 1 medication record(s)." in result.care_summary
+
+
+def test_empty_results_produce_a_valid_final_response():
+    payload = care_coordinator({"patient_id": "P001", "query": "Show my care information"})
+
+    assert payload["final_response"] == "No relevant care information was found for this request."
+    assert payload["pending_actions"] == []
+    assert payload["human_review_required"] is False
