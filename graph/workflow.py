@@ -1,4 +1,5 @@
 from langgraph.graph import StateGraph, START, END
+from langgraph.types import Send
 
 from graph.state import PatientCareState
 
@@ -9,48 +10,144 @@ from agents.care_management_agent import care_management_agent
 from agents.care_coordinator import care_coordinator
 
 
-def route_supervisor(state):
+# ---------------------------------------------------------
+# Route dynamically based on Supervisor decision
+# ---------------------------------------------------------
 
-    agents = state.get("selected_agents", [])
+def route_supervisor(state: PatientCareState):
+    """
+    Read the agents selected by the Supervisor and dynamically
+    send the current state to each required specialist agent.
+    """
 
-    # For V1 keep routing simple.
-    if "patient_agent" in agents:
-        return "patient"
+    # If Supervisor needs clarification, skip specialist agents.
+    if state.get("needs_clarification", False):
+        return "coordinator"
 
-    if "clinical_agent" in agents:
-        return "clinical"
+    selected_agents = state.get("selected_agents", [])
 
-    if "care_management_agent" in agents:
-        return "care"
+    # If no agent was selected, go directly to coordinator.
+    if not selected_agents:
+        return "coordinator"
 
-    return "coordinator"
+    routes = []
 
+    if "patient_agent" in selected_agents:
+        routes.append(
+            Send("patient_agent", state)
+        )
+
+    if "clinical_agent" in selected_agents:
+        routes.append(
+            Send("clinical_agent", state)
+        )
+
+    if "care_management_agent" in selected_agents:
+        routes.append(
+            Send("care_management_agent", state)
+        )
+
+    if not routes:
+        return "coordinator"
+
+    return routes
+
+
+# ---------------------------------------------------------
+# Create LangGraph
+# ---------------------------------------------------------
 
 builder = StateGraph(PatientCareState)
 
-builder.add_node("supervisor", supervisor_agent)
-builder.add_node("patient", patient_agent)
-builder.add_node("clinical", clinical_agent)
-builder.add_node("care", care_management_agent)
-builder.add_node("coordinator", care_coordinator)
 
-builder.add_edge(START, "supervisor")
+# ---------------------------------------------------------
+# Add Nodes
+# ---------------------------------------------------------
+
+builder.add_node(
+    "supervisor",
+    supervisor_agent
+)
+
+builder.add_node(
+    "patient_agent",
+    patient_agent
+)
+
+builder.add_node(
+    "clinical_agent",
+    clinical_agent
+)
+
+builder.add_node(
+    "care_management_agent",
+    care_management_agent
+)
+
+builder.add_node(
+    "coordinator",
+    care_coordinator
+)
+
+
+# ---------------------------------------------------------
+# START -> Supervisor
+# ---------------------------------------------------------
+
+builder.add_edge(
+    START,
+    "supervisor"
+)
+
+
+# ---------------------------------------------------------
+# Supervisor -> Specialist Agents
+# ---------------------------------------------------------
 
 builder.add_conditional_edges(
     "supervisor",
     route_supervisor,
-    {
-        "patient": "patient",
-        "clinical": "clinical",
-        "care": "care",
-        "coordinator": "coordinator"
-    }
+    [
+        "patient_agent",
+        "clinical_agent",
+        "care_management_agent",
+        "coordinator"
+    ]
 )
 
-builder.add_edge("patient", "coordinator")
-builder.add_edge("clinical", "coordinator")
-builder.add_edge("care", "coordinator")
 
-builder.add_edge("coordinator", END)
+# ---------------------------------------------------------
+# Specialist Agents -> Coordinator
+# ---------------------------------------------------------
+
+builder.add_edge(
+    "patient_agent",
+    "coordinator"
+)
+
+builder.add_edge(
+    "clinical_agent",
+    "coordinator"
+)
+
+builder.add_edge(
+    "care_management_agent",
+    "coordinator"
+)
+
+
+# ---------------------------------------------------------
+# Coordinator -> END
+# ---------------------------------------------------------
+
+builder.add_edge(
+    "coordinator",
+    END
+)
+
+
+# ---------------------------------------------------------
+# Compile Graph
+# ---------------------------------------------------------
 
 graph = builder.compile()

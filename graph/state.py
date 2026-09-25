@@ -10,7 +10,11 @@ class PatientCareState(TypedDict, total=False):
     # Supervisor
     intent: str
     selected_agents: List[str]
-
+    tasks: List[Dict[str, Any]]
+    
+    needs_clarification: bool
+    clarification_question: str
+    
     # Patient Agent
     patient_info: Dict[str, Any]
     medical_history: List[Dict[str, Any]]
