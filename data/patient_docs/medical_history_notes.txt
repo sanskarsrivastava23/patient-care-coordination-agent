@@ -1,0 +1,9 @@
+Patient ID: P1001
+
+The patient has a history of hypertension.
+
+Previous medical records indicate regular monitoring of blood pressure.
+
+The patient has a documented allergy to Penicillin.
+
+Previous visits were primarily related to routine hypertension follow-up and monitoring.

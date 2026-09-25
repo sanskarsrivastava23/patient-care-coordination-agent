@@ -1,0 +1,11 @@
+Patient ID: P1001
+
+Patient Name: John Doe
+
+John Doe is a 45-year-old male patient with a documented history of hypertension.
+
+The patient has a known allergy to Penicillin.
+
+The patient has attended routine follow-up visits for blood pressure monitoring.
+
+The patient has been advised to continue regular follow-up with the healthcare provider.
