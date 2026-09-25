@@ -1,0 +1,135 @@
+[
+  {
+    "patient_id": "P001",
+    "patient_name": "Rahul Sharma",
+    "name": "Metformin",
+    "dose": "500 mg",
+    "frequency": "twice daily"
+  },
+  {
+    "patient_id": "P001",
+    "patient_name": "Rahul Sharma",
+    "name": "Amlodipine",
+    "dose": "5 mg",
+    "frequency": "once daily"
+  },
+  {
+    "patient_id": "P002",
+    "patient_name": "Priya Das",
+    "name": "Atorvastatin",
+    "dose": "20 mg",
+    "frequency": "once daily"
+  },
+  {
+    "patient_id": "P002",
+    "patient_name": "Priya Das",
+    "name": "Losartan",
+    "dose": "50 mg",
+    "frequency": "once daily"
+  },
+  {
+    "patient_id": "P003",
+    "patient_name": "Amit Kumar",
+    "name": "Metformin",
+    "dose": "1000 mg",
+    "frequency": "once daily"
+  },
+  {
+    "patient_id": "P003",
+    "patient_name": "Amit Kumar",
+    "name": "Glimepiride",
+    "dose": "2 mg",
+    "frequency": "once daily"
+  },
+  {
+    "patient_id": "P004",
+    "patient_name": "Sneha Roy",
+    "name": "Levothyroxine",
+    "dose": "50 mcg",
+    "frequency": "once daily"
+  },
+  {
+    "patient_id": "P005",
+    "patient_name": "Arjun Singh",
+    "name": "Amlodipine",
+    "dose": "10 mg",
+    "frequency": "once daily"
+  },
+  {
+    "patient_id": "P005",
+    "patient_name": "Arjun Singh",
+    "name": "Atorvastatin",
+    "dose": "20 mg",
+    "frequency": "once daily"
+  },
+  {
+    "patient_id": "P006",
+    "patient_name": "Neha Gupta",
+    "name": "Pantoprazole",
+    "dose": "40 mg",
+    "frequency": "once daily"
+  },
+  {
+    "patient_id": "P006",
+    "patient_name": "Neha Gupta",
+    "name": "Cetirizine",
+    "dose": "10 mg",
+    "frequency": "once daily"
+  },
+  {
+    "patient_id": "P007",
+    "patient_name": "Rohan Mehta",
+    "name": "Losartan",
+    "dose": "50 mg",
+    "frequency": "once daily"
+  },
+  {
+    "patient_id": "P007",
+    "patient_name": "Rohan Mehta",
+    "name": "Metformin",
+    "dose": "500 mg",
+    "frequency": "twice daily"
+  },
+  {
+    "patient_id": "P008",
+    "patient_name": "Ananya Sen",
+    "name": "Levothyroxine",
+    "dose": "75 mcg",
+    "frequency": "once daily"
+  },
+  {
+    "patient_id": "P008",
+    "patient_name": "Ananya Sen",
+    "name": "Calcium Carbonate",
+    "dose": "500 mg",
+    "frequency": "once daily"
+  },
+  {
+    "patient_id": "P009",
+    "patient_name": "Vikram Patel",
+    "name": "Atorvastatin",
+    "dose": "40 mg",
+    "frequency": "once daily"
+  },
+  {
+    "patient_id": "P009",
+    "patient_name": "Vikram Patel",
+    "name": "Aspirin",
+    "dose": "75 mg",
+    "frequency": "once daily"
+  },
+  {
+    "patient_id": "P010",
+    "patient_name": "Kavya Nair",
+    "name": "Metformin",
+    "dose": "500 mg",
+    "frequency": "twice daily"
+  },
+  {
+    "patient_id": "P010",
+    "patient_name": "Kavya Nair",
+    "name": "Losartan",
+    "dose": "25 mg",
+    "frequency": "once daily"
+  }
+]
