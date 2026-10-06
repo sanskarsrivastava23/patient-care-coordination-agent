@@ -1,0 +1,183 @@
+CLINICAL MEDICATION GUIDELINES
+==============================
+
+Purpose:
+This document provides general clinical information about medications
+present in the patient medication dataset. It is intended for clinical
+support and educational use. Medication decisions should be made by a
+qualified healthcare professional.
+
+
+1. METFORMIN
+------------
+
+Metformin is an oral medication commonly used to help control blood
+glucose levels in people with type 2 diabetes mellitus.
+
+Common clinical use:
+- Type 2 diabetes mellitus
+- Helps improve blood glucose control
+- May be used along with diet and exercise
+- May be combined with other diabetes medications
+
+Important:
+Metformin is not generally used to treat type 1 diabetes by itself.
+Clinical use and dosing depend on the patient's condition and kidney
+function.
+
+
+2. AMLODIPINE
+-------------
+
+Amlodipine is a calcium channel blocker used to lower blood pressure.
+
+Common clinical use:
+- Hypertension
+- Certain types of angina (chest pain)
+
+It works mainly by relaxing blood vessels, which helps reduce blood
+pressure and the workload on the heart.
+
+
+3. ATORVASTATIN
+---------------
+
+Atorvastatin is a statin medication used to lower cholesterol levels
+and reduce cardiovascular risk.
+
+Common clinical use:
+- High cholesterol
+- Reduction of cardiovascular risk
+- Reduction of LDL cholesterol
+
+It works by reducing cholesterol production in the liver.
+
+
+4. LOSARTAN
+-----------
+
+Losartan is an angiotensin II receptor blocker (ARB) used primarily
+to control blood pressure.
+
+Common clinical use:
+- Hypertension
+- Reduction of cardiovascular risk in certain patients
+- Kidney protection in some patients with diabetes and hypertension
+
+Losartan works by blocking the action of angiotensin II, helping blood
+vessels relax and lowering blood pressure.
+
+
+5. GLIMEPIRIDE
+-------------
+
+Glimepiride is an oral antidiabetic medication belonging to the
+sulfonylurea class.
+
+Common clinical use:
+- Type 2 diabetes mellitus
+- Helps lower blood glucose levels
+
+It stimulates the pancreas to release insulin.
+
+Important:
+Because it can increase insulin release, glimepiride may cause
+low blood glucose (hypoglycemia).
+
+
+6. LEVOTHYROXINE
+----------------
+
+Levothyroxine is a synthetic form of thyroid hormone.
+
+Common clinical use:
+- Hypothyroidism
+- Thyroid hormone replacement
+- Certain thyroid-related conditions under medical supervision
+
+It replaces or supplements thyroid hormone that the body does not
+produce sufficiently.
+
+
+7. CALCIUM CARBONATE
+--------------------
+
+Calcium carbonate is a calcium-containing medication or supplement.
+
+Common clinical use:
+- Calcium supplementation
+- Prevention or treatment of calcium deficiency
+- As an antacid for relief of heartburn and acid indigestion
+
+The appropriate use depends on the patient's clinical condition
+and the reason for treatment.
+
+
+8. PANTOPRAZOLE
+---------------
+
+Pantoprazole is a proton pump inhibitor (PPI) that reduces the
+production of stomach acid.
+
+Common clinical use:
+- Gastroesophageal reflux disease (GERD)
+- Acid-related disorders
+- Erosive esophagitis
+- Other conditions involving excessive stomach acid
+
+It works by reducing acid production in the stomach.
+
+
+9. CETIRIZINE
+-------------
+
+Cetirizine is an antihistamine medication used to relieve symptoms
+caused by allergies.
+
+Common clinical use:
+- Allergic rhinitis
+- Sneezing
+- Runny nose
+- Itching
+- Watery eyes
+- Hives (urticaria)
+
+It works by blocking the effects of histamine.
+
+
+10. ASPIRIN
+-----------
+
+Aspirin is a medication with pain-relieving, fever-reducing,
+anti-inflammatory, and antiplatelet effects.
+
+Common clinical use:
+- Prevention of blood clots in selected cardiovascular patients
+- Reduction of risk of certain heart attacks and strokes when
+  prescribed for cardiovascular prevention
+- Pain and fever relief in appropriate situations
+
+Low-dose aspirin is commonly used for its antiplatelet effect.
+
+Important:
+Aspirin can increase the risk of bleeding and is not appropriate
+for every patient.
+
+
+GENERAL CLINICAL SAFETY
+=======================
+
+Medication information in this document describes common clinical
+uses and does not constitute an individual treatment recommendation.
+
+Medication choice and dosing depend on factors such as:
+- Patient diagnosis
+- Age
+- Kidney function
+- Liver function
+- Other medications
+- Allergies
+- Other medical conditions
+
+Medication interactions should be checked before starting a new
+medication.

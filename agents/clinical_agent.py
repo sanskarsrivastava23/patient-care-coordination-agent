@@ -24,7 +24,7 @@ from tools.medication_tools import get_current_medications
 load_dotenv()
 
 ROOT = Path(__file__).resolve().parent.parent
-DOCS_DIR = ROOT / "clinical_docs"
+DOCS_DIR = ROOT / "data" / "clinical_docs" 
 CHROMA_DIR = ROOT / "chroma_store"
 
 

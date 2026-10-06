@@ -1,6 +1,6 @@
 [
   {
-    "patient_id": "P001",
+    "patient_id": "P1001",
     "patient_name": "Rahul Sharma",
     "glucose": 145,
     "hba1c": 6.8,
@@ -9,7 +9,7 @@
     "hemoglobin": 13.5
   },
   {
-    "patient_id": "P002",
+    "patient_id": "P1002",
     "patient_name": "Priya Das",
     "glucose": 98,
     "hba1c": 5.4,
@@ -18,7 +18,7 @@
     "hemoglobin": 12.8
   },
   {
-    "patient_id": "P003",
+    "patient_id": "P1003",
     "patient_name": "Amit Kumar",
     "glucose": 178,
     "hba1c": 7.2,
@@ -27,7 +27,7 @@
     "hemoglobin": 14.2
   },
   {
-    "patient_id": "P004",
+    "patient_id": "P1004",
     "patient_name": "Sneha Roy",
     "glucose": 92,
     "hba1c": 5.2,
@@ -36,7 +36,7 @@
     "hemoglobin": 11.2
   },
   {
-    "patient_id": "P005",
+    "patient_id": "P1005",
     "patient_name": "Arjun Singh",
     "glucose": 105,
     "hba1c": 5.8,
@@ -45,7 +45,7 @@
     "hemoglobin": 15.1
   },
   {
-    "patient_id": "P006",
+    "patient_id": "P1006",
     "patient_name": "Neha Gupta",
     "glucose": 88,
     "hba1c": 5.1,
@@ -54,7 +54,7 @@
     "hemoglobin": 13.1
   },
   {
-    "patient_id": "P007",
+    "patient_id": "P1007",
     "patient_name": "Rohan Mehta",
     "glucose": 155,
     "hba1c": 7.0,
@@ -63,7 +63,7 @@
     "hemoglobin": 12.1
   },
   {
-    "patient_id": "P008",
+    "patient_id": "P1008",
     "patient_name": "Ananya Sen",
     "glucose": 94,
     "hba1c": 5.3,
@@ -72,7 +72,7 @@
     "hemoglobin": 12.5
   },
   {
-    "patient_id": "P009",
+    "patient_id": "P1009",
     "patient_name": "Vikram Patel",
     "glucose": 110,
     "hba1c": 5.9,
@@ -81,7 +81,7 @@
     "hemoglobin": 14.8
   },
   {
-    "patient_id": "P010",
+    "patient_id": "P1010",
     "patient_name": "Kavya Nair",
     "glucose": 162,
     "hba1c": 6.9,
